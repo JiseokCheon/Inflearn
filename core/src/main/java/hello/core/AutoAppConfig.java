@@ -10,6 +10,8 @@ import org.springframework.context.annotation.FilterType;
 )
 public class AutoAppConfig {
 
+
+    // cheon
 //    @Bean(name = "memoryMemberRepository")
 //    MemberRepository memberRepository() {
 //        return new MemoryMemberRepository();
