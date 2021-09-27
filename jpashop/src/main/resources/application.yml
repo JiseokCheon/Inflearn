@@ -1,19 +1,21 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/jpashop;
+    url:  jdbc:h2:tcp://localhost/~/documents/inflearn/jpashop
     username: sa
     password:
     driver-class-name: org.h2.Driver
 
   jpa:
     hibernate:
-      ddl-auto: create  # 자동으로 테이블 만들어줌
+      ddl-auto: create
     properties:
       hibernate:
-#        show_sql: true   # System.out 에 출력
+#        show_sql: true
         format_sql: true
+        default_batch_fetch_size: 100
 
-logging:
-  level:
-    org.hibernate.SQL: debug  # log에 출력
-    org.hibernate.type: trace # log에 parameter 타입 출력
+
+logging.level:
+  org.hibernate.SQL: debug
+#  org.hibernate.type: trace
+
