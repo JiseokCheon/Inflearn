@@ -7,7 +7,7 @@
 
 * spring_MVC_2 `스프링 MVC 2편 - 백엔드 웹 개발 활용 기술`
 
-* spring_boots_and_JPA `실전! 스프링 부트와 JPA활용 1 - 웹 애플리케이션 개발`
+* spring_boots_and_JPA `실전! 스프링 부트와 JPA활용 1, 2`
 
 * spring_data_jpa `실전! 스프링 데이터 JPA`
 
