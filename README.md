@@ -13,4 +13,4 @@
 
 * Querydsl `실전! Querydsl`
 
-* JWT `Spring Boot JWT Tutorial`
+* jwt-tutorial `Spring Boot JWT Tutorial`
