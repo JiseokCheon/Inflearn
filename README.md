@@ -12,3 +12,5 @@
 * spring_data_jpa `실전! 스프링 데이터 JPA`
 
 * Querydsl `실전! Querydsl`
+
+* JWT `Spring Boot JWT Tutorial`
