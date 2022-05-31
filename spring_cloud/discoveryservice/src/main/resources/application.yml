@@ -1,0 +1,13 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: discoveryservice # 각 마이크로 서비스의 고유한 ID 부여
+
+# eureka 설정
+# ture이면 eureka에 등록됨 (자기 자신에게 등록되는 꼴)
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false 
