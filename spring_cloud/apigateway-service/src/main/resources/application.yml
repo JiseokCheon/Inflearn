@@ -17,14 +17,16 @@ spring:
         - id: first-service
           uri: http://localhost:8081/
           filters:
-            - AddRequestHeader=first-request, first-request-header2
-            - AddResponseHeader=first-response, first-response-header2
+#            - AddRequestHeader=first-request, first-request-header2
+#            - AddResponseHeader=first-response, first-response-header2
+            - CustomFilter
           predicates:
             - Path=/first-service/**
         - id: second-service
           uri: http://localhost:8082/
           filters:
-            - AddRequestHeader=second-request, second-request-header2
-            - AddResponseHeader=second-response, second-response-header2
+#            - AddRequestHeader=second-request, second-request-header2
+#            - AddResponseHeader=second-response, second-response-header2
+            - CustomFilter
           predicates:
             - Path=/second-service/**
