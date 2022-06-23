@@ -4,6 +4,14 @@ server:
 spring:
   application:
     name: user-service
+  # 2.4 이후로는 config 설정을 application.yml 파일에 설정
+  cloud:
+    config:
+      name: ecommerce
+#      uri: http://localhost:8888
+  config:
+    import: optional:configserver:http://localhost:8888
+
   h2:
     console:
       enabled: true
@@ -35,6 +43,15 @@ logging:
   level:
     com.example.userservice: DEBUG
 
-token:
-  expiration_time: 86400000 # 토큰 지속 시간 (하루 24 * 60 * 60 * 1000)
-  secret: user_token # 임의의 값
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh,health,beans
+# refresh는 config server에서 가져올 내용을 refresh 한다. (가장 중요)
+
+
+# spring cloud config 에서 가져올거라서 주석처리
+#token:
+#  expiration_time: 86400000 # 토큰 지속 시간 (하루 24 * 60 * 60 * 1000)
+#  secret: user_token # 임의의 값

@@ -1,0 +1,6 @@
+#spring:
+#  cloud:
+#    config:
+#      uri: http://127.0.0.1:8888
+#      name: ecommerce # repository 파일명
+# 2.4 이후로는 application.yml 파일에 설정
