@@ -11,7 +11,18 @@ eureka:
 spring:
   application:
     name: apigateway-service
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672 # 웹 브라우저에서 접속할때는 15672, amqp 프로토콜 사용시에는 5672
+    username: guest
+    password: guest
+  config:
+    import: optional:configserver:http://localhost:8888
+  profiles:
+    active: prod
   cloud:
+    config:
+      name: ecommerce
     gateway:
       default-filters:
         - name: GlobalFilter
@@ -49,6 +60,14 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*),/$\{segment}
             - AuthorizationHeaderFilter
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/actuator/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*),/$\{segment}
         - id: catalog-service
           uri: lb://CATALOG-SERVICE
           predicates:
@@ -79,5 +98,11 @@ spring:
           predicates:
             - Path=/second-service/**
 
-token:
-  secret: user_token # 임의의 값
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, trace, busrefresh
+
+#token:
+#  secret: user_token # 임의의 값

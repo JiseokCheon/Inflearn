@@ -4,11 +4,18 @@ server:
 spring:
   application:
     name: user-service
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672 # 웹 브라우저에서 접속할때는 15672, amqp 프로토콜 사용시에는 5672
+    username: guest
+    password: guest
   # 2.4 이후로는 config 설정을 application.yml 파일에 설정
   cloud:
     config:
       name: ecommerce
 #      uri: http://localhost:8888
+  profiles:
+    active: prod
   config:
     import: optional:configserver:http://localhost:8888
 
@@ -47,7 +54,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh,health,beans
+        include: refresh,health,beans,busrefresh
 # refresh는 config server에서 가져올 내용을 refresh 한다. (가장 중요)
 
 

@@ -4,8 +4,30 @@ server:
 spring:
   application:
     name: config-service
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672 # 웹 브라우저에서 접속할때는 15672, amqp 프로토콜 사용시에는 5672
+    username: guest
+    password: guest
+  profiles:
+    active: native
   cloud:
     config:
       server:
+        native:
+          search-locations: file://${user.home}/Documents/local-repo
+
         git:
-          uri: file:///Users/jiseok/Documents/git-local-repo # file 프로토콜
+#          uri: file:///Users/jiseok/Documents/git-local-repo # file 프로토콜
+          uri: https://github.com/jscheon/spring-cloud-config.git
+
+          # private Repository 라면 id, pw 등록
+#          username:
+#          password:
+
+# (rabbitmq) config server에 변경 요청 사항이 들어오게 되면 rabbitMQ에 통보한 후 rabbitMQ에 등록된 정보보고 push
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, busrefresh
