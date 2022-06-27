@@ -7,11 +7,16 @@ import com.example.userservice.vo.ResponseOrder;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +27,16 @@ public class UserServiceImpl implements UserService {
 
     UserRepository userRepository;
     BCryptPasswordEncoder passwordEncoder;
+    RestTemplate restTemplate;
+    Environment env;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, RestTemplate restTemplate, Environment env) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.restTemplate = restTemplate;
+        this.env = env;
     }
-
 
     @Override
     public UserDto createUser(UserDto userDto) {
@@ -56,10 +64,21 @@ public class UserServiceImpl implements UserService {
 
         UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
 
-        List<ResponseOrder> orders = new ArrayList<>();
-        userDto.setOrders(orders);
+//        List<ResponseOrder> orders = new ArrayList<>();
 
-        return null;
+        // RestTemplate 사용
+        String orderUrl = String.format(env.getProperty("order_service.url"), userId); // 사용자 id로 등록된 주문을 가져올 주소
+        // restTemplate 의 exchange 메서드 (주소, HTTP 메서드, request 할때 데이터 파라미터 타입, 반환 파라미터 타입)
+        ResponseEntity<List<ResponseOrder>> orderListResponse = restTemplate.exchange(orderUrl, HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<ResponseOrder>>() {
+                });
+
+
+        List<ResponseOrder> ordersList = orderListResponse.getBody();
+
+        userDto.setOrders(ordersList);
+
+        return userDto;
     }
 
     @Override

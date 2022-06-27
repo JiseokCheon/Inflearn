@@ -12,7 +12,7 @@ spring:
   # 2.4 이후로는 config 설정을 application.yml 파일에 설정
   cloud:
     config:
-      name: ecommerce
+      name: user-service
 #      uri: http://localhost:8888
   profiles:
     active: prod
@@ -25,9 +25,9 @@ spring:
       settings:
         web-allow-others: true
       path: /h2-console
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:testdb
 
 
 eureka:
