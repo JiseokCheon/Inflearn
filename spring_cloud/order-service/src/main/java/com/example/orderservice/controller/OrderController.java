@@ -2,10 +2,10 @@ package com.example.orderservice.controller;
 
 import com.example.orderservice.dto.OrderDto;
 import com.example.orderservice.jpa.OrderEntity;
+import com.example.orderservice.messagequeue.KafkaProducer;
 import com.example.orderservice.service.OrderService;
 import com.example.orderservice.vo.RequestOrder;
 import com.example.orderservice.vo.ResponseOrder;
-import org.apache.coyote.Request;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +23,13 @@ public class OrderController {
 
     Environment env;
     OrderService orderService;
+    KafkaProducer kafkaProducer;   // 등록한 빈 사용
 
     @Autowired
-    public OrderController(Environment env, OrderService orderService) {
+    public OrderController(Environment env, OrderService orderService, KafkaProducer kafkaProducer) {
         this.env = env;
         this.orderService = orderService;
+        this.kafkaProducer = kafkaProducer;
     }
 
     @GetMapping("/health_check")
@@ -43,6 +45,10 @@ public class OrderController {
         OrderDto orderDto = mapper.map(orderDetails, OrderDto.class);
         orderDto.setUserId(userId);
         orderService.createOrder(orderDto);
+
+        // kafka 에 주문 전달
+        kafkaProducer.send("example-catalog-topic", orderDto);
+
 
         ResponseOrder responseOrder = mapper.map(orderDto, ResponseOrder.class);
 
