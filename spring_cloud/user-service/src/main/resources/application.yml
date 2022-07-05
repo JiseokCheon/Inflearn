@@ -4,6 +4,13 @@ server:
 spring:
   application:
     name: user-service
+  zipkin:
+    base-url: http://127.0.0.1:9411
+    enabled: true
+  sleuth:
+    sampler:
+      probability: 1.0
+
   rabbitmq:
     host: 127.0.0.1
     port: 5672 # 웹 브라우저에서 접속할때는 15672, amqp 프로토콜 사용시에는 5672
