@@ -61,7 +61,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh,health,beans,busrefresh
+        include: refresh,health,beans,busrefresh, info, metrics, prometheus
 # refresh는 config server에서 가져올 내용을 refresh 한다. (가장 중요)
 
 

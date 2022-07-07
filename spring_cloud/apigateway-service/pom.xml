@@ -56,6 +56,11 @@
             <version>0.9.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+
 <!--        java.lang.NoClassDefFoundError: Could not initialize class javax.xml.bind.DatatypeConverterImpl-->
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
