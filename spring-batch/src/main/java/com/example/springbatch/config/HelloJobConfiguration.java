@@ -49,10 +49,10 @@ public class HelloJobConfiguration {
 	 */
 
 	@Bean
-	public Job helloJob(JobRepository jobRepository, Step step) {
+	public Job helloJob(JobRepository jobRepository, Step helloStep) {
 		return new JobBuilder("helloJob", jobRepository)
 			.incrementer(new RunIdIncrementer())
-			.flow(step)
+			.flow(helloStep)
 			.end()
 			.build();
 	}
