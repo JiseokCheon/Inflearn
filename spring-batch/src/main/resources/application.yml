@@ -19,7 +19,7 @@ spring:
     activate:
       on-profile: mysql
   datasource:
-    url: jdbc:mysql://localhost:3306/springbatch?useUnicode=treu&characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/springbatch?useUnicode=true&characterEncoding=utf8
     username: root
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -28,3 +28,5 @@ spring:
   batch:
     jdbc:
       initialize-schema: always
+    job:
+      name: testJob

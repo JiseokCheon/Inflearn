@@ -3,7 +3,6 @@ package com.example.springbatch.config;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.repeat.RepeatStatus;
@@ -15,31 +14,31 @@ import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
-public class DBJobConfiguration {
+public class JobConfiguration {
 
 	@Bean
-	public Job DBJob(JobRepository jobRepository, Step step1, Step step2) {
-		return new JobBuilder("DBJob", jobRepository)
-			.start(step1)
-			.next(step2)
+	public Job testJob(JobRepository jobRepository, Step step11, Step step22) {
+		return new JobBuilder("testJob", jobRepository)
+			.start(step11)
+			.next(step22)
 			.build();
 	}
 
 	@Bean
-	public Step step1(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
-		return new StepBuilder("step1", jobRepository)
+	public Step step11(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+		return new StepBuilder("step11", jobRepository)
 			.tasklet((contribution, chunkContext) -> {
-				System.out.println("step1 was executed");
+				System.out.println("step11 was executed");
 				return RepeatStatus.FINISHED;
 			}, transactionManager)
 			.build();
 	}
 
 	@Bean
-	public Step step2(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
-		return new StepBuilder("step2", jobRepository)
+	public Step step22(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+		return new StepBuilder("step22", jobRepository)
 			.tasklet((contribution, chunkContext) -> {
-				System.out.println("step2 was executed");
+				System.out.println("step22 was executed");
 				return RepeatStatus.FINISHED;
 			}, transactionManager)
 			.build();
