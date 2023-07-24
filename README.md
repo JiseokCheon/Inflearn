@@ -18,3 +18,5 @@
 * spring_cloud `Spring Cloud로 개발하는 MSA`
 
 * spring_batch `스프링 배치 - Spring Boot 기반으로 개발하는 Spring Batch`
+
+* advenced `스프링 핵심 원리 - 고급편`
