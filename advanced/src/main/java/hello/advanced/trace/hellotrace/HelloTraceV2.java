@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-public class HelloTracV2 {
+public class HelloTraceV2 {
 
 	private static final String START_PREFIX = "-->";
 	private static final String COMPLETE_PREFIX = "<--";
